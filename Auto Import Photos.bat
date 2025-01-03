@@ -5,6 +5,8 @@ echo.
 echo     Auto Importing Photos...
 echo.
 
+if not exist "F:\DCIM\101D3400" goto end
+if not exist "G:\DCIM\101ND200" goto end
 if not exist "C:\Users\Chris\Pictures\Develop" mkdir "C:\Users\Chris\Pictures\Develop"
 
 setlocal ENABLEDELAYEDEXPANSION
@@ -19,7 +21,7 @@ mkdir "C:\Users\Chris\Pictures\Develop\%date:~0,4%.%month% %finalMonth% %date:~8
 if exist "F:\DCIM\101D3400" goto import1
 :start
 if exist "G:\DCIM\101ND200" goto import2
-goto end
+goto last
 
 :import1
 xcopy /s "F:\DCIM\101D3400" "C:\Users\Chris\Pictures\Develop\%date:~0,4%.%month% %finalMonth% %date:~8,2%"
@@ -28,5 +30,7 @@ goto start
 :import2
 xcopy /s "G:\DCIM\101ND200" "C:\Users\Chris\Pictures\Develop\%date:~0,4%.%month% %finalMonth% %date:~8,2%"
 
-:end
+:last
 start C:\Users\Chris\Pictures\Develop
+
+:end
