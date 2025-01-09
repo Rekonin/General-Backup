@@ -5,7 +5,6 @@ echo.
 echo     Auto Importing Photos...
 echo.
 
-if not exist "F:\" goto end
 if not exist "C:\Users\Chris\Pictures\Develop" mkdir "C:\Users\Chris\Pictures\Develop"
 
 setlocal ENABLEDELAYEDEXPANSION
