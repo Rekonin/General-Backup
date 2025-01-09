@@ -2,7 +2,7 @@
 mode con: cols=40 lines=7
 cls
 echo.
-echo     Auto Importing Photos...
+echo     Auto Importing Photos
 echo.
 
 if not exist "C:\Users\Chris\Pictures\Develop" mkdir "C:\Users\Chris\Pictures\Develop"
@@ -22,13 +22,25 @@ if exist "G:\DCIM\101ND200" goto import2
 goto last
 
 :import1
-xcopy /s "F:\DCIM\101D3400" "C:\Users\Chris\Pictures\Develop\%date:~0,4%.%month% %finalMonth% %date:~8,2%"
+echo     Importing from SD Card...
+xcopy /s "F:\DCIM\101D3400" "C:\Users\Chris\Pictures\Develop\%date:~0,4%.%month% %finalMonth% %date:~8,2%">nul
+for /f %%A in ('dir /a-d-s-h /b "F:\DCIM\101D3400" ^| find /v /c ""') do set count1=%%A
+echo     %count1% from SD Card
+echo.
 goto start
 
 :import2
-xcopy /s "G:\DCIM\101ND200" "C:\Users\Chris\Pictures\Develop\%date:~0,4%.%month% %finalMonth% %date:~8,2%"
+echo     Importing from CF Card...
+xcopy /s "G:\DCIM\101ND200" "C:\Users\Chris\Pictures\Develop\%date:~0,4%.%month% %finalMonth% %date:~8,2%">nul
+for /f %%B in ('dir /a-d-s-h /b "G:\DCIM\101ND200" ^| find /v /c ""') do set count2=%%B
+echo     %count2% from CF Card
 
 :last
 start C:\Users\Chris\Pictures\Develop
 
 :end
+echo.
+set /a "totalCount=%count1%+%count2%"
+echo     %totalCount% total imported images
+echo.
+pause>nul
